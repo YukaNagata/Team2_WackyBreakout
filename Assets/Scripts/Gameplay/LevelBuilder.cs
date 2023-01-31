@@ -15,6 +15,9 @@ public class LevelBuilder : MonoBehaviour
     [SerializeField]
     GameObject prefabStandardBlock;
 
+    [SerializeField]
+    GameObject prefabBearSpawnerBlock;
+
     #endregion
 
     #region Unity methods
@@ -45,14 +48,32 @@ public class LevelBuilder : MonoBehaviour
             (ScreenUtils.ScreenTop - ScreenUtils.ScreenBottom) / 5 -
             blockHeight / 2;
 
+        // bear spawner block's index
+        int bearSpawnerBlockRow = 1;
+        int bearSpawnerBlockColumn = 1;
+
         // add rows of blocks
         Vector2 currentPosition = new Vector2(leftBlockOffset, topRowOffset);
         for (int row = 0; row < 3; row++)
         {
             for (int column = 0; column < blocksPerRow; column++)
             {
-                Instantiate(prefabStandardBlock, currentPosition, 
-                    Quaternion.identity); currentPosition.x += blockWidth;
+                // whether teddy bear spawner block or not
+                if (row==bearSpawnerBlockRow && column == bearSpawnerBlockColumn)
+                {
+                    Instantiate(prefabBearSpawnerBlock, currentPosition,
+                    Quaternion.identity);
+                    //Instantiate(prefabStandardBlock, currentPosition,
+                    //Quaternion.identity);
+                }
+                else
+                {
+                    Instantiate(prefabStandardBlock, currentPosition,
+                    Quaternion.identity);
+                    //Instantiate(prefabBearSpawnerBlock, currentPosition,
+                    //Quaternion.identity);
+                }
+                currentPosition.x += blockWidth;
             }
 
             // move to next row

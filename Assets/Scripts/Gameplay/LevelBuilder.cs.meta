@@ -3,7 +3,10 @@ guid: 69b141462868a0647861678886cb8ece
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - prefabPaddle: {fileID: 3244552459319685573, guid: 0bdbd96424c09534bbc100f43f82aada, type: 3}
+  - prefabStandardBlock: {fileID: 8937961074355689624, guid: 5525ab230c4e1694f88a3f500e2888d1, type: 3}
+  - prefabBearSpawnerBlock: {fileID: 7500841345943176926, guid: 04e5a3cfc636f104f9eb3a4b2dc11192, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
