@@ -15,7 +15,7 @@ public class Ball : MonoBehaviour
     // death timer
     Timer deathTimer;
 
-    #endregion
+     #endregion
 
     #region Unity methods
 
