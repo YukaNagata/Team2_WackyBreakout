@@ -16,6 +16,13 @@ public class Paddle : MonoBehaviour
     // aiming support
     const float BounceAngleHalfRange = 60 * Mathf.Deg2Rad;
 
+    // change size of paddle
+    Timer sizeTimer;
+    const float sizeChangeDuration = 2.0f;
+    const float sizeChangePerSecond = 1.5f;
+    int sizeChangeDirection = 1;
+    Vector3 localScale;
+
     #endregion
 
     #region Unity methods
@@ -29,6 +36,14 @@ public class Paddle : MonoBehaviour
         rb2d = GetComponent<Rigidbody2D>();
         BoxCollider2D bc2d = GetComponent<BoxCollider2D>();
         halfColliderWidth = bc2d.size.x / 2;
+
+        // start size change timer
+        sizeTimer = gameObject.AddComponent<Timer>();
+        sizeTimer.Duration = sizeChangePerSecond;
+        sizeTimer.Run();
+
+        // initialize size
+        localScale = transform.localScale;
     }
 
     /// <summary>
@@ -36,7 +51,14 @@ public class Paddle : MonoBehaviour
     /// </summary>
     void Update()
     {
-        
+        // switch expansion and contraction
+        if (sizeTimer.Finished)
+        {
+            sizeChangeDirection *= -1;
+            sizeTimer.Run();
+        }
+        localScale.x += sizeChangeDirection * sizeChangePerSecond * Time.deltaTime;
+        transform.localScale = localScale;
     }
 
     /// <summary>
