@@ -49,8 +49,8 @@ public class LevelBuilder : MonoBehaviour
             blockHeight / 2;
 
         // bear spawner block's index
-        int bearSpawnerBlockRow = 1;
-        int bearSpawnerBlockColumn = 1;
+        int bearSpawnerBlockRow = Random.Range(0,3);
+        int bearSpawnerBlockColumn = Random.Range(0, blocksPerRow); 
 
         // add rows of blocks
         Vector2 currentPosition = new Vector2(leftBlockOffset, topRowOffset);
