@@ -12,9 +12,17 @@ public class Paddle : MonoBehaviour
     // saved for efficiency
     Rigidbody2D rb2d;
     float halfColliderWidth;
+    BoxCollider2D bc2d;
 
     // aiming support
     const float BounceAngleHalfRange = 60 * Mathf.Deg2Rad;
+
+    // change size of paddle
+    Timer sizeTimer;
+    const float sizeChangeDuration = 2.0f;
+    const float sizeChangePerSecond = 1.5f;
+    int sizeChangeDirection = 1;
+    Vector3 localScale;
 
     #endregion
 
@@ -27,8 +35,16 @@ public class Paddle : MonoBehaviour
     {
         // save for efficiency
         rb2d = GetComponent<Rigidbody2D>();
-        BoxCollider2D bc2d = GetComponent<BoxCollider2D>();
+        bc2d = GetComponent<BoxCollider2D>();
         halfColliderWidth = bc2d.size.x / 2;
+
+        // start size change timer
+        sizeTimer = gameObject.AddComponent<Timer>();
+        sizeTimer.Duration = sizeChangePerSecond;
+        sizeTimer.Run();
+
+        // initialize size
+        localScale = transform.localScale;
     }
 
     /// <summary>
@@ -36,7 +52,14 @@ public class Paddle : MonoBehaviour
     /// </summary>
     void Update()
     {
-        
+        // switch expansion and contraction
+        if (sizeTimer.Finished)
+        {
+            sizeChangeDirection *= -1;
+            sizeTimer.Run();
+        }
+        localScale.x += sizeChangeDirection * sizeChangePerSecond * Time.deltaTime;
+        transform.localScale = localScale;
     }
 
     /// <summary>
@@ -68,6 +91,8 @@ public class Paddle : MonoBehaviour
             // calculate new ball direction
             float ballOffsetFromPaddleCenter = transform.position.x -
                 coll.transform.position.x;
+            // recalculate the width of the paddle because the value changes
+            halfColliderWidth = transform.localScale.x * bc2d.size.x / 2;
             float normalizedBallOffset = ballOffsetFromPaddleCenter /
                 halfColliderWidth;
             float angleOffset = normalizedBallOffset * BounceAngleHalfRange;
@@ -76,7 +101,15 @@ public class Paddle : MonoBehaviour
 
             // tell ball to set direction to new direction
             Ball ballScript = coll.gameObject.GetComponent<Ball>();
-            ballScript.SetDirection(direction);
+            Kone koneScript = coll.gameObject.GetComponent<Kone>();
+            if (ballScript != null)
+            {
+                ballScript.SetDirection(direction);
+            }
+            else
+            {
+                koneScript.SetDirection(direction);
+            }
         }
     }
 
