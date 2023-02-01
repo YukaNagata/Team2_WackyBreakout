@@ -52,8 +52,7 @@ public class BearSpawnerBlock : MonoBehaviour
             -Camera.main.transform.position.z);
         Vector3 worldLocation = Camera.main.ScreenToWorldPoint(location);
 
-        // spawn random teddy bear type at location
-        GameObject teddyBear;
-            Instantiate(prefabTeddyBear,worldLocation, Quaternion.identity);
+        // spawn teddy bear at location
+        Instantiate(prefabTeddyBear,worldLocation, Quaternion.identity);
     }
 }
