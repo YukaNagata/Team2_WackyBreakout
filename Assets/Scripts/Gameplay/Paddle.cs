@@ -12,6 +12,7 @@ public class Paddle : MonoBehaviour
     // saved for efficiency
     Rigidbody2D rb2d;
     float halfColliderWidth;
+    BoxCollider2D bc2d;
 
     // aiming support
     const float BounceAngleHalfRange = 60 * Mathf.Deg2Rad;
@@ -34,7 +35,7 @@ public class Paddle : MonoBehaviour
     {
         // save for efficiency
         rb2d = GetComponent<Rigidbody2D>();
-        BoxCollider2D bc2d = GetComponent<BoxCollider2D>();
+        bc2d = GetComponent<BoxCollider2D>();
         halfColliderWidth = bc2d.size.x / 2;
 
         // start size change timer
@@ -90,6 +91,8 @@ public class Paddle : MonoBehaviour
             // calculate new ball direction
             float ballOffsetFromPaddleCenter = transform.position.x -
                 coll.transform.position.x;
+            // recalculate the width of the paddle because the value changes
+            halfColliderWidth = transform.localScale.x * bc2d.size.x / 2;
             float normalizedBallOffset = ballOffsetFromPaddleCenter /
                 halfColliderWidth;
             float angleOffset = normalizedBallOffset * BounceAngleHalfRange;
