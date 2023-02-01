@@ -98,7 +98,15 @@ public class Paddle : MonoBehaviour
 
             // tell ball to set direction to new direction
             Ball ballScript = coll.gameObject.GetComponent<Ball>();
-            ballScript.SetDirection(direction);
+            Kone koneScript = coll.gameObject.GetComponent<Kone>();
+            if (ballScript != null)
+            {
+                ballScript.SetDirection(direction);
+            }
+            else
+            {
+                koneScript.SetDirection(direction);
+            }
         }
     }
 
