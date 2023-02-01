@@ -11,7 +11,7 @@ public class Block : MonoBehaviour
 
     //[SerializeField]
     ////GameObject prefabExplosion;
-    ////”š”­ƒGƒtƒFƒNƒg
+    ////çˆ†ç™ºã‚¨ãƒ•ã‚§ã‚¯ãƒˆ
     //public GameObject prefabExplosion;
     
     #endregion
@@ -35,6 +35,8 @@ public class Block : MonoBehaviour
        //prefabExplosion.SetActive(true);
     }
 
+    private Vector3 speed = new Vector3(20, 20, 20);
+
     /// <summary>
     /// Destroys the block on collision with a ball
     /// </summary>
@@ -44,21 +46,32 @@ public class Block : MonoBehaviour
         
         if (coll.gameObject.CompareTag("Ball"))
         {
+
+
+            GetComponent<Renderer>().material.color
+                = new Color(Random.value, Random.value, Random.value, 1.0f);
+
+            this.transform.localScale -= speed * Time.deltaTime;
+
+            if (this.transform.localScale.x < 0)
+            {
+                Destroy(gameObject);
+            }
+
             //Instantiate(explosion_prefab, transform.position, Quaternion.identity);
-   
-            Destroy(gameObject);
             //Debug.Log("debug comment");
-            //ƒGƒtƒFƒNƒg‚ð”­¶‚³‚¹‚é
+            //ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã‚’ç™ºç”Ÿã•ã›ã‚‹
             //GenerateEffect();
+
         }
     }
 
-    ////ƒGƒtƒFƒNƒg‚ð¶¬‚·‚é
+    ////ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã‚’ç”Ÿæˆã™ã‚‹
     //void GenerateEffect()
     //{
-    //    //ƒGƒtƒFƒNƒg‚ð¶¬‚·‚é
+    //    //ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã‚’ç”Ÿæˆã™ã‚‹
     //    GameObject effect = Instantiate(prefabExplosion) as GameObject;
-    //    //ƒGƒtƒFƒNƒg‚ª”­¶‚·‚éêŠ‚ðŒˆ’è‚·‚é
+    //    //ã‚¨ãƒ•ã‚§ã‚¯ãƒˆãŒç™ºç”Ÿã™ã‚‹å ´æ‰€ã‚’æ±ºå®šã™ã‚‹
     //    effect.transform.position = gameObject.transform.position;
     //}
 
