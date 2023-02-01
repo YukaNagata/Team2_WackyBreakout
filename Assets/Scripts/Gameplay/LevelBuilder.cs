@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -48,9 +49,12 @@ public class LevelBuilder : MonoBehaviour
             (ScreenUtils.ScreenTop - ScreenUtils.ScreenBottom) / 5 -
             blockHeight / 2;
 
-        // bear spawner block's index
-        int bearSpawnerBlockRow = Random.Range(0,3);
-        int bearSpawnerBlockColumn = Random.Range(0, blocksPerRow); 
+        
+        
+
+        // bear spawner block index
+        int bearSpawnerBlockRow = UnityEngine.Random.Range(0,3);
+        int bearSpawnerBlockColumn = UnityEngine.Random.Range(0, blocksPerRow); 
 
         // add rows of blocks
         Vector2 currentPosition = new Vector2(leftBlockOffset, topRowOffset);
@@ -63,15 +67,11 @@ public class LevelBuilder : MonoBehaviour
                 {
                     Instantiate(prefabBearSpawnerBlock, currentPosition,
                     Quaternion.identity);
-                    //Instantiate(prefabStandardBlock, currentPosition,
-                    //Quaternion.identity);
                 }
                 else
                 {
                     Instantiate(prefabStandardBlock, currentPosition,
                     Quaternion.identity);
-                    //Instantiate(prefabBearSpawnerBlock, currentPosition,
-                    //Quaternion.identity);
                 }
                 currentPosition.x += blockWidth;
             }
