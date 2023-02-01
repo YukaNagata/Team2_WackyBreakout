@@ -23,7 +23,6 @@ public class BearSpawnerBlock : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        float topRowOffset = 
         minSpawnX = SpawnBorderSize;
         maxSpawnX = Screen.width - SpawnBorderSize;
         minSpawnY = SpawnBorderSize;
@@ -55,10 +54,6 @@ public class BearSpawnerBlock : MonoBehaviour
 
         // spawn random teddy bear type at location
         GameObject teddyBear;
-        int typeNumber = Random.Range(0, 3);
-        if (typeNumber < 1)
-        {
-            teddyBear = Instantiate(prefabTeddyBear) as GameObject;
-        }
+            Instantiate(prefabTeddyBear,worldLocation, Quaternion.identity);
     }
 }
